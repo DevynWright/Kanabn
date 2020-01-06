@@ -1,5 +1,10 @@
 <template>
+<div>
+  <router-link :to="{name: 'boards'}">Home</router-link>
   <div class="board">{{board.title}}</div>
+  <div>{{board.description}}</div>
+
+</div>
 </template>
 
 <script>
