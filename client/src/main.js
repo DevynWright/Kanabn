@@ -3,6 +3,9 @@ import App from './App.vue'
 import router from './router/index'
 import store from './store/index'
 import AuthService from "./AuthService"
+import VModal from 'vue-js-modal'
+ 
+Vue.use(VModal)
 
 //Vue.config.productionTip = false
 
