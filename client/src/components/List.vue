@@ -1,10 +1,17 @@
 <template>
-  
+<div class="row">
+
+
+  <div class="col-3">
+    {{listData.title}}
+  </div>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'List'
+  name: 'Lists',
+  props: ["listData"],
 }
 </script>
 

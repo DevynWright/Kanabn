@@ -32,8 +32,8 @@ export default new Vuex.Store({
     setActiveBoard(state, payload){
       state.activeBoard = payload
     },
-    addList(state, list){
-      state.lists = list
+    addList(state, lists){
+      state.lists = lists
       }},
   actions: {
     //#region -- AUTH STUFF --
@@ -90,7 +90,13 @@ export default new Vuex.Store({
       let res = await api.post("lists", listData)
       console.log("this is the push to list api", res.data)
       commit("addList", res.data)
-    }
+    },
+    async getLists({ commit, dispatch }, payload) {
+      api.get('boards/' + payload.boardId + "/lists", payload.authorId)
+        .then(res => {
+          commit('addLists', res.data)
+        })
+    },
   }
 });
 

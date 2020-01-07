@@ -6,7 +6,7 @@ const _repository = mongoose.model('List', List)
 
 class ListService {
     async getById(id, userId){
-        let data = await _repository.findOne({_id: id, authorId: userId})
+        let data = await _repository.find({boardId: id, authorId: userId})
         if (!data){
             throw new ApiError("Invalid ID or you do not own this baord", 400)
         }

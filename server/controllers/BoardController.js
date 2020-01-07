@@ -1,5 +1,6 @@
 import _boardService from '../services/BoardService'
 import express from 'express'
+import _listService from "../services/ListService.js"
 import { Authorize } from '../middleware/authorize.js'
 
 
@@ -9,6 +10,7 @@ export default class BoardsController {
     this.router = express.Router()
       .use(Authorize.authenticated)
       .get('', this.getAll)
+      .get("/:id/lists", this.getListsById)
       .get('/:id', this.getById)
       .post('', this.create)
       .put('/:id', this.edit)
@@ -21,7 +23,14 @@ export default class BoardsController {
   defaultRoute(req, res, next) {
     next({ status: 404, message: 'No Such Route' })
   }
-
+  async getListsById(req, res, next){  
+    try {
+        let data = await _listService.getById(req.params.id, req.session.uid)
+        return res.send(data)
+    } catch (error) {
+        next(error)
+    }
+}
   async getAll(req, res, next) {
     try {
       //only gets boards by user who is logged in

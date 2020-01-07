@@ -6,7 +6,7 @@ export default class ListsController{
     constructor(){
         this.router = express.Router()
         .use(Authorize.authenticated)
-        .get("/:id", this.getById)
+        .get("/:id/lists", this.getById)
         .post("", this.create)
         .delete("/:id", this.delete)
         .use(this.defaultRoute)
@@ -19,7 +19,7 @@ export default class ListsController{
 
     async getById(req, res, next){  
         try {
-            let res = await _listService.getById(req.params.id, req.session.authenticated)
+            let res = await _listService.getById(req.params.id, req.session.uid)
             return res.send(data)
         } catch (error) {
             next(error)
