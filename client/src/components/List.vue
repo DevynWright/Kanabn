@@ -5,8 +5,8 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">{{listData.title}}</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Add Task</a>
+        <span class="card-text"><task /></span>
+        <button @click.prevent="addTask" href="#" class="btn btn-primary">Add Task</button>
       </div>
     </div>
   </div>
@@ -14,9 +14,14 @@
 </template>
 
 <script>
+import task from "../components/Task"
 export default {
   name: 'Lists',
   props: ["listData"],
+
+  components:{
+    task
+  }
 }
 </script>
 
