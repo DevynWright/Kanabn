@@ -5,7 +5,9 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">{{listData.title}}</h5>
-        <span class="card-text"><task /></span>
+        <span v-for="task in tasks" :key="task._id">
+          <task :taskData="task" />
+          </span>
         <button @click.prevent="showTask" href="#" class="btn btn-primary">Add Task</button>
           <modal name="addTaskModal">
             <form @submit.prevent="addTask">
@@ -35,6 +37,9 @@ export default {
     }
   },
   props: ["listData"],
+  mounted(){
+    this.$store.dispatch("getTasks", {listId: this.listData._id, authorId: this.$store.state.user._id})
+  },
 
   components:{
     task
@@ -57,6 +62,11 @@ export default {
       this.$modal.hide('addTaskModal');
     }
   },
+  computed: {
+    tasks(){
+      return this.$store.state.tasks
+    }
+  }
 }
 </script>
 

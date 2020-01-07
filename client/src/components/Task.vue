@@ -2,7 +2,7 @@
   <div class="task">
       <ul>
         <li>
-        tasks will go here
+        {{taskData.title}}
         </li>
       </ul>
   </div>
@@ -11,6 +11,7 @@
 <script>
 export default {
 name: "Tasks",
+props: ["taskData"]
 
 }
 </script>

@@ -110,7 +110,8 @@ export default new Vuex.Store({
       dispatch("getTasks")
     },
     async getTasks({ commit, dispatch }, payload) {
-      api.get('boards/' + payload.listId + "/lists", payload.authorId)
+      console.log("list id", payload)
+      api.get('lists/' + payload.listId + "/tasks", payload.authorId)
         .then(res => {
           commit('addList', res.data)
         })

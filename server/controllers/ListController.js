@@ -1,12 +1,13 @@
 import express from "express"
 import _listService from "../services/ListService"
+import _taskService from "../services/TaskService.js"
 import { Authorize } from "../middleware/authorize.js"
 
 export default class ListsController{
     constructor(){
         this.router = express.Router()
         .use(Authorize.authenticated)
-        .get("/:id/lists", this.getById)
+        .get("/:id/tasks", this.getTasks)
         .post("", this.create)
         .delete("/:id", this.delete)
         .use(this.defaultRoute)
@@ -17,9 +18,9 @@ export default class ListsController{
         next({status: 404, message: "No Such Route Found"})
     }
 
-    async getById(req, res, next){  
+    async getTasks(req, res, next){  
         try {
-            let res = await _listService.getById(req.params.id, req.session.uid)
+            let res = await _taskService.getTasks(req.params.id, req.session.uid)
             return res.send(data)
         } catch (error) {
             next(error)
