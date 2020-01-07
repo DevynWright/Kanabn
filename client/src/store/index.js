@@ -20,6 +20,7 @@ export default new Vuex.Store({
     user: {},
     boards: [],
     lists: [],
+    tasks: [],
     activeBoard: {}
   },
   mutations: {

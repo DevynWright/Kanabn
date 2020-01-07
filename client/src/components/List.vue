@@ -17,11 +17,38 @@
 import task from "../components/Task"
 export default {
   name: 'Lists',
+  data(){
+    return {
+      newTask:{
+        title: "",
+        authorId: this.$store.state.user._id,
+        boardId: this.$route.params.boardId
+      }
+    }
+  },
   props: ["listData"],
 
   components:{
     task
-  }
+  },
+   methods: {
+    addTask(){
+      let task = { ...this.newList };
+      this.$store.dispatch("addList", list);
+      this.newList = {
+        title: "",
+        authorId: this.$store.state.user._id,
+        boardId: this.$route.params.boardId
+      }
+      location.reload()
+    },
+    show () {
+      this.$modal.show('addListModal');
+    },
+    hide () {
+      this.$modal.hide('addListModal');
+    }
+  },
 }
 </script>
 
