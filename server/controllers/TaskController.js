@@ -1,11 +1,11 @@
 import express from "express"
 import _taskService from "../services/TaskService"
-import {Authorizr} from "../middleware/authorize.js"
+import {Authorize} from "../middleware/authorize.js"
 
 export default class TaskController{
     constructor(){
         this.router = express.Router()
-        .use(Authorize.authenticate)
+        .use(Authorize.authenticated)
         .get("/:id/list/:id", this.getNotesByListId)
         .post("", this.createTask)
         .delete("/:id/list:id", this.deleteTask)
@@ -27,9 +27,9 @@ export default class TaskController{
     }
     async createTask(req,res,next){
          try {
-            req.body.authorId = req.session.usd
+            req.body.authorId = req.session.uid
             let data = await _taskService.createTask(req.body)
-            return res.staus(201).send(data)
+            return res.status(201).send(data)
         } catch (error) {
               next(error)
         }

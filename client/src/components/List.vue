@@ -6,7 +6,15 @@
       <div class="card-body">
         <h5 class="card-title">{{listData.title}}</h5>
         <span class="card-text"><task /></span>
-        <button @click.prevent="addTask" href="#" class="btn btn-primary">Add Task</button>
+        <button @click.prevent="showTask" href="#" class="btn btn-primary">Add Task</button>
+          <modal name="addTaskModal">
+            <form @submit.prevent="addTask">
+              <div class="form-group">
+                <input name="title" type="text" v-model="newTask.title" required placeholder="Task Title..."/>
+              </div>
+              <button type="submit">Add List</button>
+            </form>
+          </modal>
       </div>
     </div>
   </div>
@@ -22,7 +30,7 @@ export default {
       newTask:{
         title: "",
         authorId: this.$store.state.user._id,
-        boardId: this.$route.params.boardId
+        listId: this.listData._id
       }
     }
   },
@@ -33,20 +41,20 @@ export default {
   },
    methods: {
     addTask(){
-      let task = { ...this.newList };
-      this.$store.dispatch("addList", list);
-      this.newList = {
+      console.log("made it to the addTask function from the modal")
+      let task = { ...this.newTask };
+      this.$store.dispatch("addTask", task);
+      this.newTask = {
         title: "",
         authorId: this.$store.state.user._id,
-        boardId: this.$route.params.boardId
+        listId: this.listData._id //FIXME get the list id 
       }
-      location.reload()
     },
-    show () {
-      this.$modal.show('addListModal');
+    showTask () {
+      this.$modal.show('addTaskModal');
     },
-    hide () {
-      this.$modal.hide('addListModal');
+    hideTask () {
+      this.$modal.hide('addTaskModal');
     }
   },
 }

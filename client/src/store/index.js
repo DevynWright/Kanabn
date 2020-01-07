@@ -87,9 +87,7 @@ export default new Vuex.Store({
 
     //#region -- LISTS --
     async addList({ commit, dispatch }, listData) {
-      console.log("arriving to add list", listData)
       let res = await api.post("lists", listData)
-      console.log("this is the push to list api", res.data)
       commit("addList", res.data)
       dispatch("getLists")
     },
@@ -99,8 +97,25 @@ export default new Vuex.Store({
           commit('addList', res.data)
         })
     },
-  }
-});
-
 
     //#endregion
+
+    //#region -- TASKS --
+
+    async addTask({ commit, dispatch }, taskData) {
+      console.log("arriving to add task", taskData)
+      let res = await api.post("tasks", taskData)
+      console.log("this is the push to task api", res.data)
+      commit("addTask", res.data)
+      dispatch("getTasks")
+    },
+    async getTasks({ commit, dispatch }, payload) {
+      api.get('boards/' + payload.listId + "/lists", payload.authorId)
+        .then(res => {
+          commit('addList', res.data)
+        })
+    },
+  }
+});
+    //#endregion
+
