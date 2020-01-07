@@ -1,4 +1,5 @@
 <template>
+<div id="bigOcontainer">
 <div class="conatiner-fluid">
   <div class="row">
     <div class="col-12">
@@ -16,9 +17,12 @@
         </modal>
     </div>
   </div>
-  <div v-for="list in lists" :key="list._id" class="row">
-    <lists :listData="list"/>
-  </div>
+</div>
+<div class="container">
+      <div v-for="list in lists" :key="list._id">
+        <lists :listData="list"/>
+      </div>
+</div>
 </div>
 </template>
 
@@ -61,6 +65,7 @@ export default {
         authorId: this.$store.state.user._id,
         boardId: this.$route.params.boardId
       }
+      location.reload()
     },
     show () {
       this.$modal.show('addListModal');

@@ -90,11 +90,12 @@ export default new Vuex.Store({
       let res = await api.post("lists", listData)
       console.log("this is the push to list api", res.data)
       commit("addList", res.data)
+      dispatch("getLists")
     },
     async getLists({ commit, dispatch }, payload) {
       api.get('boards/' + payload.boardId + "/lists", payload.authorId)
         .then(res => {
-          commit('addLists', res.data)
+          commit('addList', res.data)
         })
     },
   }
