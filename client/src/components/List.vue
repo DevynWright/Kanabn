@@ -3,14 +3,13 @@
     <div class="col-sm-6">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">{{listData.title}} {{listData.id}}</h5>
+          <h5 class="card-title">{{listData.title}}</h5>
           <span v-for="task in tasks" :key="task._id">
             <task :taskData="task" />
           </span>
           <button @click.prevent="showTask" href="#" class="btn btn-primary">Add Task</button>
           <modal :name="listData.id">
             <form @submit.prevent="addTask">
-              {{listData.id}}
               <div class="form-group">
                 <input
                   name="title"
@@ -20,7 +19,7 @@
                   placeholder="Task Title..."
                 />
               </div>
-              <button type="submit">Add List</button>
+              <button @click="hideTask" type="submit">Add List</button>
             </form>
           </modal>
         </div>
@@ -40,10 +39,6 @@ export default {
   },
   props: ["listData"],
   mounted() {
-    this.$store.dispatch("getTasks", {
-      listId: this.listData._id,
-      authorId: this.$store.state.user._id
-    });
   },
 
   components: {
@@ -55,11 +50,11 @@ export default {
       let task = { ...this.newTask };
       task.listId = this.listData.id;
       task.boardId = this.$route.params.boardId;
-      // this.newTask = {
-      //   title: "",
-      //   authorId: this.$store.state.user._id,
-      //   listId: this.listData._id //FIXME get the list id
-      // };
+      this.newTask = {
+        title: "",
+        authorId: this.$store.state.user._id,
+        listId: this.listData.id
+      };
       this.$store.dispatch("addTask", task);
     },
     showTask() {

@@ -50,6 +50,10 @@ export default {
     this.$store.dispatch("getLists", {
       boardId: this.$route.params.boardId,
       authorId: this.$store.state.user._id
+    }),
+    this.$store.dispatch("getTasks", {
+      boardId: this.$route.params.boardId,
+      authorId: this.$store.state.user._id
     });
   },
   computed: {

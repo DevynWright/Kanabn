@@ -6,7 +6,7 @@ const _repository = mongoose.model("Task", Task);
 
 class TaskService {
   async getTasks(id, userId) {
-    let data = await _repository.find({ listId: id, authorId: userId });
+    let data = await _repository.find({ boardId: id, authorId: userId });
     if (!data) {
       throw new ApiError("Invalid ID or you do not own this board, 400");
     }
