@@ -119,6 +119,11 @@ export default new Vuex.Store({
       let res = await api.get("tasks?boardId=" + payload.boardId);
       console.log("Tasks gotten", res.data);
       commit("setTasks", res.data);
+    },
+    async deleteTask({commit, dispatch}, taskData){
+      console.log("delete task data", taskData)
+      await api.delete("tasks/" + taskData._id)
+      dispatch("getTasks")
     }
   }
 });

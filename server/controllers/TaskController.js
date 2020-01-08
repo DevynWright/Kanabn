@@ -9,7 +9,7 @@ export default class TaskController {
       .use(Authorize.authenticated)
       .get("", this.getTasks)
       .post("", this.createTask)
-      .delete("/:id/list:id", this.deleteTask)
+      .delete("/:id", this.deleteTask)
       .use(this.defaultRoute);
   }
 
@@ -47,7 +47,7 @@ export default class TaskController {
   }
   async deleteTask(req, res, next) {
     try {
-      await _taskService.deleteTask(req.params.id, res.session.uid);
+      await _taskService.deleteTask(req.params.id, req.session.uid);
       res.send("SHE GONE");
     } catch (error) {
       next(error);

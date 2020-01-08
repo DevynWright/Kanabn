@@ -24,7 +24,7 @@ class TaskService {
     return data;
   }
   async deleteTask(id, userID) {
-    let data = await _repository.delete({ _id: id, authorId: userID });
+    let data = await _repository.findByIdAndDelete({ _id: id, authorId: userID });
     if (!data) {
       throw new ApiError("Invalid id or you dont own it");
     }

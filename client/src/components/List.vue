@@ -3,7 +3,8 @@
     <div class="col-sm-6">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">{{listData.title}}</h5>
+          <h5 class="card-title">{{listData.title}}<h6 style="color: red" class="fas fa-trash-alt"></h6></h5>
+          
           <span v-for="task in tasks" :key="task._id">
             <task :taskData="task" />
           </span>
