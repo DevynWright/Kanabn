@@ -34,8 +34,14 @@ export default new Vuex.Store({
     addList(state, lists) {
       state.lists = lists;
     },
-    addTask(state, tasks) {
+    setTasks(state, tasks) {
+      console.log("What tasks looks like", tasks);
+
       state.tasks = tasks;
+      console.log("Tasks in Store", state.tasks);
+    },
+    addTask(state, task) {
+      state.tasks.push(task);
     }
   },
   actions: {
@@ -95,7 +101,7 @@ export default new Vuex.Store({
         "boards/" + payload.boardId + "/lists",
         payload.authorId
       );
-      console.log("from get lists", res.data);
+      console.log("from get lists", this.state.user);
 
       commit("addList", res.data);
     },
@@ -108,18 +114,15 @@ export default new Vuex.Store({
       console.log("arriving to add task", taskData);
       let res = await api.post("tasks", taskData);
       console.log("this is the push to task api", res.data);
-      // commit("addTask", res.data); NOTE This is what broke stuff
-      dispatch("getTasks", taskData);
+      commit("addTask", res.data); //NOTE This is what broke stuff
+      //dispatch("getTasks", taskData);
     },
     async getTasks({ commit, dispatch }, payload) {
       console.log("list id", payload);
-      let res = await api.get(
-        "lists/" + payload.listId + "/tasks",
-        payload.authorId
-      );
-      console.log("Task gotten", res.data);
+      let res = await api.get("tasks?boardId=" + payload.boardId);
+      console.log("Tasks gotten", res.data);
 
-      commit("addTask", res.data);
+      commit("setTasks", res.data);
     }
   }
 });

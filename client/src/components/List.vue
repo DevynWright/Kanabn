@@ -1,73 +1,80 @@
 <template>
-
-<div class="row">
-  <div class="col-sm-6">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">{{listData.title}}</h5>
-        <span v-for="task in tasks" :key="task._id">
-          <task :taskData="task" />
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{listData.title}} {{listData.id}}</h5>
+          <span v-for="task in tasks" :key="task._id">
+            <task :taskData="task" />
           </span>
-        <button @click.prevent="showTask" href="#" class="btn btn-primary">Add Task</button>
-          <modal name="addTaskModal">
+          <button @click.prevent="showTask" href="#" class="btn btn-primary">Add Task</button>
+          <modal :name="listData.id">
             <form @submit.prevent="addTask">
+              {{listData.id}}
               <div class="form-group">
-                <input name="title" type="text" v-model="newTask.title" required placeholder="Task Title..."/>
+                <input
+                  name="title"
+                  type="text"
+                  v-model="newTask.title"
+                  required
+                  placeholder="Task Title..."
+                />
               </div>
               <button type="submit">Add List</button>
             </form>
           </modal>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
-import task from "../components/Task"
+import task from "../components/Task";
 export default {
-  name: 'Lists',
-  data(){
+  name: "Lists",
+  data() {
     return {
-      newTask:{
-        title: "",
-        authorId: this.$store.state.user._id,
-        listId: this.listData._id
-      }
-    }
+      newTask: {}
+    };
   },
   props: ["listData"],
-  mounted(){
-    this.$store.dispatch("getTasks", {listId: this.listData._id, authorId: this.$store.state.user._id})
+  mounted() {
+    this.$store.dispatch("getTasks", {
+      listId: this.listData._id,
+      authorId: this.$store.state.user._id
+    });
   },
 
-  components:{
+  components: {
     task
   },
-   methods: {
-    addTask(){
-      console.log("made it to the addTask function from the modal")
+  methods: {
+    addTask() {
+      console.log("made it to the addTask function from the modal");
       let task = { ...this.newTask };
+      task.listId = this.listData.id;
+      task.boardId = this.$route.params.boardId;
+      // this.newTask = {
+      //   title: "",
+      //   authorId: this.$store.state.user._id,
+      //   listId: this.listData._id //FIXME get the list id
+      // };
       this.$store.dispatch("addTask", task);
-      this.newTask = {
-        title: "",
-        authorId: this.$store.state.user._id,
-        listId: this.listData._id //FIXME get the list id 
-      }
     },
-    showTask () {
-      this.$modal.show('addTaskModal');
+    showTask() {
+      this.$modal.show(this.listData.id);
     },
-    hideTask () {
-      this.$modal.hide('addTaskModal');
+    hideTask() {
+      this.$modal.hide(this.listData.id);
     }
   },
   computed: {
-    tasks(){
-      return this.$store.state.tasks
+    tasks() {
+      return this.$store.state.tasks.filter(t => t.listId == this.listData._id);
     }
   }
-}
+};
 </script>
 
 <style scoped>

@@ -12,6 +12,13 @@ class TaskService {
     }
     return data;
   }
+  async getAll(userId) {
+    let data = await _repository.find({ authorId: userId });
+    if (!data) {
+      throw new ApiError("Invalid ID or you do not own this board, 400");
+    }
+    return data;
+  }
   async createTask(rawData) {
     let data = await _repository.create(rawData);
     return data;
