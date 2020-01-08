@@ -97,9 +97,7 @@ export default new Vuex.Store({
     },
     async getLists({ commit, dispatch }, payload) {
       let res = await api.get(
-        "boards/" + payload.boardId + "/lists",
-        payload.authorId
-      );
+        "boards/" + payload.boardId + "/lists");
       console.log("from get lists", this.state.user);
 
       commit("addList", res.data);

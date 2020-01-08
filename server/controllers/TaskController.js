@@ -5,7 +5,7 @@ import { Authorize } from "../middleware/authorize.js";
 export default class TaskController {
   constructor() {
     this.router = express
-      .Router()
+    .Router({ mergeParams: true }) //Allows to get parameters from main
       .use(Authorize.authenticated)
       .get("", this.getTasks)
       .post("", this.createTask)
@@ -20,7 +20,7 @@ export default class TaskController {
   async getTasks(req, res, next) {
     try {
       let data = await _taskService.getTasks(
-        req.params.boardId,
+        req.query.boardId,
         req.session.uid
       );
       return res.send(data);
@@ -54,5 +54,5 @@ export default class TaskController {
     }
   }
 
-  async;
+  
 }
