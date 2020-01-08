@@ -29,6 +29,12 @@ class TaskService {
       throw new ApiError("Invalid id or you dont own it");
     }
   }
+  async editTask(id, userID){
+    let data = await _repository.findByIdAndUpdate({ _id: id, authorId: userID })
+    if (!data) {
+      throw new ApiError("Invalid id or you dont own")
+    }
+  }
 }
 
 const _taskService = new TaskService();

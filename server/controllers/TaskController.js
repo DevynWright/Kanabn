@@ -9,6 +9,7 @@ export default class TaskController {
       .use(Authorize.authenticated)
       .get("", this.getTasks)
       .post("", this.createTask)
+      .put("/:id", this.editTask)
       .delete("/:id", this.deleteTask)
       .use(this.defaultRoute);
   }
@@ -51,6 +52,14 @@ export default class TaskController {
       res.send("SHE GONE");
     } catch (error) {
       next(error);
+    }
+  }
+  async editTask(req, res, next){
+    try {
+      let data = await _taskService.editTask(req.params.id, req.session.uid)
+      return res.send(data)
+    } catch (error) {
+      next(error)
     }
   }
 

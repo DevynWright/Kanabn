@@ -123,7 +123,13 @@ export default new Vuex.Store({
     async deleteTask({commit, dispatch}, taskData){
       console.log("delete task data", taskData)
       await api.delete("tasks/" + taskData._id)
-      dispatch("getTasks")
+      dispatch("getTasks", taskData)
+    },
+    async editTask({commit, dispatch}, editedTask){
+      console.log("searching", editedTask)
+      let res = await api.put("tasks/" + editedTask.taskId, editedTask);
+      dispatch("getTasks", editedTask); //NOTE Needs to be res.data eventually 
+      
     }
   }
 });
