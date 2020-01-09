@@ -11,7 +11,6 @@ export default class BoardsController {
       .Router()
       .use(Authorize.authenticated)
       .get("", this.getAll)
-      // .get("/:id/lists/:id/tasks", this.getTasksById)
       .get("/:id/lists", this.getListsById)
       .get("/:id", this.getById)
       .post("", this.create)
@@ -25,14 +24,6 @@ export default class BoardsController {
   defaultRoute(req, res, next) {
     next({ status: 404, message: "No Such Route" });
   }
-  // async getTasksById(req, res, next) {
-  //   try {
-  //     let data = await _taskService.getTasks(req.params.id, req.session.uid);
-  //     return res.send(data);
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
   async getListsById(req, res, next) {
     try {
       let data = await _listService.getById(req.params.id, req.session.uid);

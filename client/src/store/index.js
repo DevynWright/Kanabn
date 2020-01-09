@@ -134,6 +134,11 @@ export default new Vuex.Store({
       console.log("delete task data", listData)
       await api.delete("lists/" + listData._id)
       dispatch("getLists", listData)
+    },
+    async deleteBoard({commit, dispatch}, board){
+      console.log("delete task data", board)
+      await api.delete("boards/" + board._id)
+      dispatch("getBoards", board)
     }
   }
 });

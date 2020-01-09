@@ -9,7 +9,7 @@
     </form>
     <div v-for="board in boards" :key="board._id">
       <router-link :to="{name: 'board', params: {boardId: board._id}}">{{board.title}}</router-link>
-      <i style="color: red" class="fas fa-trash-alt"></i>
+      <i @click.prevent="deleteBoard(board)" style="color: red" class="fas fa-trash-alt"></i>
     </div>
   </div>
 </template>
@@ -42,6 +42,9 @@
         this.$store.dispatch("logout")
         location.reload()
       },
+      deleteBoard(board){
+    this.$store.dispatch("deleteBoard", board) //entet sweet alerts here TODO
+  }
     }
   };
 </script>
