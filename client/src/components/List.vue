@@ -20,7 +20,7 @@
                   placeholder="Task Title..."
                 />
               </div>
-              <button @click="hideTask" type="submit">Add List</button>
+              <button @click="hideTask" type="submit">Add Task</button>
             </form>
           </modal>
         </div>

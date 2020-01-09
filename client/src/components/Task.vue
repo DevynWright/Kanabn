@@ -39,7 +39,7 @@
                   placeholder="Comment..."
                  />
               </div>
-              <button @click="hideAddComment" type="submit">Add List</button>
+              <button @click="hideAddComment" type="submit">Add Comment</button>
             </form>
           </modal>
         </div>
