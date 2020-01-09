@@ -9,13 +9,14 @@ export default class TaskController {
       .use(Authorize.authenticated)
       .get("", this.getTasks)
       .post("", this.createTask)
+      .post("/:id", this.createComment)
       .put("/:id", this.editTask)
       .delete("/:id", this.deleteTask)
       .use(this.defaultRoute);
   }
 
   defaultRoute(req, res, next) {
-    next({ staus: 404, message: "No Such Route Found" });
+    next({ status: 404, message: "No Such Routeee Found" });
   }
 
   async getTasks(req, res, next) {
@@ -41,6 +42,15 @@ export default class TaskController {
     try {
       req.body.authorId = req.session.uid;
       let data = await _taskService.createTask(req.body);
+      return res.status(201).send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+  async createComment(req, res, next) {
+    try {
+      req.body.authorId = req.session.uid;
+      let data = await _taskService.createComment(req.body);
       return res.status(201).send(data);
     } catch (error) {
       next(error);

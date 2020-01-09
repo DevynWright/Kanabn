@@ -35,9 +35,7 @@ export default new Vuex.Store({
       state.lists = lists;
     },
     setTasks(state, tasks) {
-      console.log("What tasks looks like", tasks);
       state.tasks = tasks;
-      console.log("Tasks in Store", state.tasks);
     },
     addTask(state, task) {
       state.tasks.push(task);
@@ -98,7 +96,6 @@ export default new Vuex.Store({
     async getLists({ commit, dispatch }, payload) {
       let res = await api.get(
         "boards/" + payload.boardId + "/lists");
-      console.log("from get lists", this.state.user);
 
       commit("addList", res.data);
     },
@@ -108,35 +105,35 @@ export default new Vuex.Store({
     //#region -- TASKS --
 
     async addTask({ commit, dispatch }, taskData) {
-      console.log("arriving to add task", taskData);
       let res = await api.post("tasks", taskData);
-      console.log("this is the push to task api", res.data);
       commit("addTask", res.data); 
       //dispatch("getTasks", taskData);
     },
+    async addComment({ commit, dispatch }, comment) {
+      console.log("actual comment before sending up", comment);
+      debugger
+      let res = await api.post("tasks/" + comment.taskId, comment);
+      console.log("comment res", res.data );
+      
+      dispatch("getTasks", comment);
+    },
     async getTasks({ commit, dispatch }, payload) {
-      console.log("got to step 2", payload.boardId);
       let res = await api.get("tasks?boardId=" + payload.boardId);
-      console.log("Tasks gotten", res.data);
       commit("setTasks", res.data);
     },
     async deleteTask({commit, dispatch}, taskData){
-      console.log("delete task data", taskData)
       await api.delete("tasks/" + taskData._id)
       dispatch("getTasks", taskData)
     },
     async editTask({commit, dispatch}, editedTask){
-      console.log("searching", editedTask)
       let res = await api.put("tasks/" + editedTask.taskId, editedTask);
       dispatch("getTasks", editedTask); //NOTE Needs to be res.data eventually 
     },
     async deleteList({commit, dispatch}, listData){
-      console.log("delete task data", listData)
       await api.delete("lists/" + listData._id)
       dispatch("getLists", listData)
     },
     async deleteBoard({commit, dispatch}, board){
-      console.log("delete task data", board)
       await api.delete("boards/" + board._id)
       dispatch("getBoards", board)
     }
