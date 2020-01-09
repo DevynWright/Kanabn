@@ -115,7 +115,7 @@ export default new Vuex.Store({
       //dispatch("getTasks", taskData);
     },
     async getTasks({ commit, dispatch }, payload) {
-      console.log("board id", payload.boardId);
+      console.log("got to step 2", payload.boardId);
       let res = await api.get("tasks?boardId=" + payload.boardId);
       console.log("Tasks gotten", res.data);
       commit("setTasks", res.data);

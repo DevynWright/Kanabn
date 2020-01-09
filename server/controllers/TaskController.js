@@ -56,7 +56,7 @@ export default class TaskController {
   }
   async editTask(req, res, next){
     try {
-      let data = await _taskService.editTask(req.params.id, req.session.uid)
+      let data = await _taskService.editTask(req.params.id, req.session.uid, req.body)
       return res.send(data)
     } catch (error) {
       next(error)

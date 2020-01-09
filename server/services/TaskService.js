@@ -24,13 +24,15 @@ class TaskService {
     return data;
   }
   async deleteTask(id, userID) {
-    let data = await _repository.findByIdAndDelete({ _id: id, authorId: userID });
+    let data = await _repository.findByIdAndDelete({ _id: id, authorId: userID },
+      );
     if (!data) {
       throw new ApiError("Invalid id or you dont own it");
     }
   }
-  async editTask(id, userID){
-    let data = await _repository.findByIdAndUpdate({ _id: id, authorId: userID })
+  async editTask(id, userID, update){
+    let data = await _repository.findByIdAndUpdate({ _id: id, authorId: userID },{title: update.title},
+      { new: true })
     if (!data) {
       throw new ApiError("Invalid id or you dont own")
     }
