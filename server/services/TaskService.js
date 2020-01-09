@@ -43,6 +43,13 @@ class TaskService {
       throw new ApiError("Invalid id or you dont own")
     }
   }
+  async deleteComment(id, _id) {
+    console.log("taskId", id);
+    console.log("commentId",_id);
+    
+    let data = await _repository.update({_id: id},{$pull:{comments:{_id: _id}}}, {new: true});
+    return data;
+  }
 }
 
 const _taskService = new TaskService();

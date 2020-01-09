@@ -12,6 +12,7 @@ export default class TaskController {
       .post("/:id", this.createComment)
       .put("/:id", this.editTask)
       .delete("/:id", this.deleteTask)
+      .put("/:id/comments/:id", this.deleteComment)
       .use(this.defaultRoute);
   }
 
@@ -70,6 +71,16 @@ export default class TaskController {
       return res.send(data)
     } catch (error) {
       next(error)
+    }
+  }
+  async deleteComment(req, res, next) {
+    try {
+      console.log(req.body);
+      
+      await _taskService.deleteComment(req.body.taskId, req.body._id);
+      res.send("SHE GONE");
+    } catch (error) {
+      next(error);
     }
   }
 

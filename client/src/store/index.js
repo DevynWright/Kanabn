@@ -111,7 +111,6 @@ export default new Vuex.Store({
     },
     async addComment({ commit, dispatch }, comment) {
       console.log("actual comment before sending up", comment);
-      debugger
       let res = await api.post("tasks/" + comment.taskId, comment);
       console.log("comment res", res.data );
       
@@ -136,7 +135,13 @@ export default new Vuex.Store({
     async deleteBoard({commit, dispatch}, board){
       await api.delete("boards/" + board._id)
       dispatch("getBoards", board)
-    }
+    },
+    async deleteComment({commit, dispatch}, comment){
+      console.log(comment);
+      
+      await api.put("tasks/" + comment.taskId + "/comments/" + comment._id, comment)
+      dispatch("getTasks", comment)
   }
+}
 });
 //#endregion

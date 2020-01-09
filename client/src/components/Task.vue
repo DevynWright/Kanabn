@@ -9,7 +9,7 @@
               <i @click.prevent="deleteTask(taskData)" style="color: red" class="fas fa-trash-alt"></i>
               <i @click.prevent="showEditTask" style="color: green" class="fas fa-edit"></i>
             <ol>
-              <li v-for="comment in taskData.comments" :key="comment._id">{{comment.name}}</li>
+              <li v-for="comment in taskData.comments" :key="comment._id">{{comment.name}} <i @click.prevent="deleteComment(comment)" style="color: red" class="fas fa-trash-alt"></i></li>
             </ol>
             </li>
           </ul>
@@ -61,7 +61,6 @@ data(){
       taskId: this.taskData.id
    },
    comment: {
-     name: "",
      listId: this.taskData.listId,
      taskId: this.taskData.id,
      boardId: this.taskData.boardId
@@ -70,7 +69,12 @@ data(){
 },
 methods:{
   deleteTask(taskData){
+    console.log("taskData", taskData);
     this.$store.dispatch("deleteTask", taskData) //entet sweet alerts here TODO
+  },
+  deleteComment(comment){
+    console.log("this is what we want",comment);  
+    this.$store.dispatch("deleteComment", comment) //entet sweet alerts here TODO
   },
   editTask(){
     
@@ -86,10 +90,12 @@ methods:{
   addComment(){
     
     let comment = { ...this.comment }
+      comment.taskId = this.taskData.id,
+      comment.authorId = this.taskData.authorId,
+      comment.boardId = this.taskData.boardId
     this.comment = {
-      name: this.commentTitle,
-      taskId: this.taskData.id,
-      authorId: this.taskData.authorId
+      name: this.commentTitle
+
     }
     this.$store.dispatch("addComment", comment)
   },
@@ -106,7 +112,7 @@ methods:{
   },
   hideAddComment() {
     this.$modal.hide("com" + this.taskData.id);
-  }
+  },
 }
 
 }

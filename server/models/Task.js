@@ -3,7 +3,13 @@ let Schema = mongoose.Schema
 let ObjectId = Schema.Types.ObjectId
 
 
-const Comment = new Schema({ name: 'string' });
+const Comment = new Schema({
+   name: 'string', 
+   authorId: { type: ObjectId, ref: 'User', required: true },
+   listId: { type: ObjectId, ref: 'List', required: true },
+   boardId: { type: ObjectId, ref: 'Board', required: true },
+   taskId: { type: ObjectId, ref: 'Task', required: true }
+  });
 const Task = new Schema({
   title: { type: String, required: true },
   authorId: { type: ObjectId, ref: 'User', required: true },
