@@ -47,7 +47,7 @@ data(){
 },
 methods:{
   deleteTask(taskData){
-    this.$store.dispatch("deleteTask", taskData)
+    this.$store.dispatch("deleteTask", taskData) //entet sweet alerts here TODO
   },
   editTask(){
     

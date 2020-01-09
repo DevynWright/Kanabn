@@ -50,7 +50,7 @@ export default class ListsController {
   }
   async delete(req, res, next) {
     try {
-      await _listService.delete(req.params.id, res.session.uid);
+      await _listService.delete(req.params.id, req.session.uid);
       return res.send("SHE GONE");
     } catch (error) {
       next(error);
