@@ -37,7 +37,7 @@ class TaskService {
     }
   }
   async editTask(id, userID, update){
-    let data = await _repository.findByIdAndUpdate({ _id: id, authorId: userID },{title: update.title, comments: update.comments},
+    let data = await _repository.findByIdAndUpdate({ _id: id, authorId: userID },{title: update.title, comments: update.comments, listId: update.listId},
       { new: true })
     if (!data) {
       throw new ApiError("Invalid id or you dont own")

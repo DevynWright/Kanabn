@@ -6,6 +6,12 @@
           <ul>
             <li><b>
               {{taskData.title}}</b>
+
+              <select v-model="movedTask.listId">
+                <option v-for="list in lists" :key="list.id" :value="list.id">{{list.title}}</option>
+                </select>
+              <button @click.prevent="moveTask">move set</button>
+
               <i @click.prevent="deleteTask(taskData)" style="color: red" class="fas fa-trash-alt"></i>
               <i @click.prevent="showEditTask" style="color: green" class="fas fa-edit"></i>
             <ol>
@@ -60,12 +66,19 @@ data(){
       boardId: this.taskData.boardId,
       taskId: this.taskData.id
    },
+    movedTask: {
+      title: this.taskData.title,
+     authorId: this.taskData.authorId,
+      boardId: this.taskData.boardId,
+      taskId: this.taskData.id,
+      listId: ""
+   },
    comment: {
      listId: this.taskData.listId,
      taskId: this.taskData.id,
      boardId: this.taskData.boardId
    }
-   }
+  }
 },
 methods:{
   deleteTask(taskData){
@@ -86,6 +99,19 @@ methods:{
       taskId: this.taskData.id
     }
     this.$store.dispatch("editTask", editedTask)
+  },
+  moveTask(){
+    
+    let movedTask = { ...this.movedTask }
+    this.movedTask = {
+      title: this.taskData.title,
+      authorId: this.taskData.authorId,
+      listId: this.listId,
+      taskId: this.taskData.id
+    }
+    console.log(movedTask);
+    
+    this.$store.dispatch("moveTask", movedTask)
   },
   addComment(){
     
@@ -113,6 +139,11 @@ methods:{
   hideAddComment() {
     this.$modal.hide("com" + this.taskData.id);
   },
+},
+computed: {
+  lists(){
+    return this.$store.state.lists
+  }
 }
 
 }

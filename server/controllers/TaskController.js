@@ -66,6 +66,8 @@ export default class TaskController {
     }
   }
   async editTask(req, res, next){
+    console.log(req.body);
+    
     try {
       let data = await _taskService.editTask(req.params.id, req.session.uid, req.body)
       return res.send(data)
@@ -75,8 +77,7 @@ export default class TaskController {
   }
   async deleteComment(req, res, next) {
     try {
-      console.log(req.body);
-      
+    
       await _taskService.deleteComment(req.body.taskId, req.body._id);
       res.send("SHE GONE");
     } catch (error) {
