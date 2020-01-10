@@ -1,6 +1,7 @@
 <template>
-  <div class="login">
-    <div :style="{ backgroundImage: 'url(image)' }"></div>
+  <div class="login d-flex justify-content-center align-items-center">
+    <div id="bg" :style="{ 'background-image': 'url(https://scottcoyneunderdev.files.wordpress.com/2015/02/dark-wood-high-quality-wallpaper-hd-resolution3.jpg)' }">
+      <img id="login-logo" src="https://cdn5.vectorstock.com/i/1000x1000/94/39/black-drop-oil-stone-logo-icon-vector-24399439.jpg" alt="">
     <form v-if="loginForm" @submit.prevent="loginUser">
       <input type="email" v-model="creds.email" placeholder="email" />
       <input type="password" v-model="creds.password" placeholder="password" />
@@ -13,9 +14,10 @@
       <button class="btn btn-warning" type="submit">Create Account</button>
     </form>
     <div class="action" @click="loginForm = !loginForm">
-      <p v-if="loginForm">No account? Click here to Register</p>
-      <p v-else>Already have an account? Click here to Login</p>
+      <p class="logintext" v-if="loginForm">No account? Click here to Register</p>
+      <p class="logintext" v-else>Already have an account? Click here to Login</p>
     </div>
+  </div>
   </div>
 </template>
 
@@ -55,6 +57,18 @@ export default {
 </script>
 
 <style>
+.logintext{
+  color: white;
+}
+#login-logo{
+  height: 40vh;
+  border-radius: 50%;
+}
+#bg{
+  height: 100vh;
+  width: 100vw;
+  background-size: cover;
+}
 .action {
   cursor: pointer;
 }
