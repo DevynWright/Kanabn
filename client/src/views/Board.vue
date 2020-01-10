@@ -1,8 +1,10 @@
 <template>
+<div id="bg" :style="{ 'background-image': 'url(https://scottcoyneunderdev.files.wordpress.com/2015/02/dark-wood-high-quality-wallpaper-hd-resolution3.jpg)' }">
+
   <div id="bigOcontainer">
     <div class="conatiner-fluid">
       <div class="row">
-        <div class="col-12">
+        <div id="home-boards" class="col-10">
           <router-link :to="{name: 'boards'}">Home</router-link>
           <div class="board">{{board.title}}</div>
           <div>{{board.description}}</div>
@@ -40,6 +42,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -121,3 +124,7 @@ export default {
   }
 };
 </script>
+<style>
+#home-boards{
+}
+</style>
