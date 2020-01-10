@@ -1,5 +1,6 @@
 <template>
   <div class="login">
+    <div :style="{ backgroundImage: 'url(image)' }"></div>
     <form v-if="loginForm" @submit.prevent="loginUser">
       <input type="email" v-model="creds.email" placeholder="email" />
       <input type="password" v-model="creds.password" placeholder="password" />
@@ -33,7 +34,8 @@ export default {
         email: "",
         password: "",
         name: ""
-      }
+      },
+      image:""
     };
   },
   beforeCreate() {
