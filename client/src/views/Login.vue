@@ -1,11 +1,11 @@
 <template>
   <div class="login d-flex justify-content-center align-items-center">
     <div id="bg" :style="{ 'background-image': 'url(https://scottcoyneunderdev.files.wordpress.com/2015/02/dark-wood-high-quality-wallpaper-hd-resolution3.jpg)' }">
-      <img id="login-logo" src="https://cdn5.vectorstock.com/i/1000x1000/94/39/black-drop-oil-stone-logo-icon-vector-24399439.jpg" alt="">
+      <img id="login-logo" src="../assets/logo.png" alt="">
     <form v-if="loginForm" @submit.prevent="loginUser">
       <input type="email" v-model="creds.email" placeholder="email" />
       <input type="password" v-model="creds.password" placeholder="password" />
-      <button class="btn btn-success" type="submit">Login</button>
+      <button class="btn btn-dark" type="submit">Login</button>
     </form>
     <form v-else @submit.prevent="register">
       <input type="text" v-model="newUser.name" placeholder="name" />
@@ -61,6 +61,8 @@ export default {
   color: white;
 }
 #login-logo{
+  margin-top: 15vh;
+  margin-bottom: 8vh;
   height: 40vh;
   border-radius: 50%;
 }
