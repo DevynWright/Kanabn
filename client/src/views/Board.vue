@@ -25,8 +25,18 @@
       </div>
     </div>
     <div class="container">
-      <div v-for="list in lists" :key="list._id">
-        <lists :listData="list" />
+      <div class="row">
+        <div class="col-sm-6">
+          <drop
+            v-for="list in lists"
+            :key="list._id"
+            @dragleave="over = false"
+            @dragover="over = true"
+            @drop="moveTask(list, ...arguments)"
+          >
+            <lists :listData="list" />
+          </drop>
+        </div>
       </div>
     </div>
   </div>
@@ -34,6 +44,9 @@
 
 <script>
 import lists from "@/components/List";
+import Vue from "vue";
+import { Drag, Drop } from "vue-drag-drop";
+
 export default {
   name: "board",
   data() {
@@ -79,6 +92,21 @@ export default {
         boardId: this.$route.params.boardId
       };
     },
+    moveTask(list, task) {
+      let movedTask = {
+        title: task.task.title,
+        authorId: task.task.authorId,
+        boardId: task.task.boardId,
+        listId: list._id,
+        id: task.task.id,
+        comments: task.task.comments
+      };
+      console.log("from List", list);
+      console.log(task);
+      console.log("final task", movedTask);
+
+      this.$store.dispatch("moveTask", movedTask);
+    },
     show() {
       this.$modal.show("addListModal");
     },
@@ -87,7 +115,9 @@ export default {
     }
   },
   components: {
-    lists
+    lists,
+    Drag,
+    Drop
   }
 };
 </script>

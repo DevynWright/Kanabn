@@ -94,8 +94,7 @@ export default new Vuex.Store({
       dispatch("getLists", listData);
     },
     async getLists({ commit, dispatch }, payload) {
-      let res = await api.get(
-        "boards/" + payload.boardId + "/lists");
+      let res = await api.get("boards/" + payload.boardId + "/lists");
 
       commit("addList", res.data);
     },
@@ -106,48 +105,53 @@ export default new Vuex.Store({
 
     async addTask({ commit, dispatch }, taskData) {
       let res = await api.post("tasks", taskData);
-      commit("addTask", res.data); 
+      commit("addTask", res.data);
       //dispatch("getTasks", taskData);
     },
     async addComment({ commit, dispatch }, comment) {
       console.log("actual comment before sending up", comment);
       let res = await api.post("tasks/" + comment.taskId, comment);
-      console.log("comment res", res.data );
-      
+      console.log("comment res", res.data);
+
       dispatch("getTasks", comment);
     },
     async getTasks({ commit, dispatch }, payload) {
       let res = await api.get("tasks?boardId=" + payload.boardId);
       commit("setTasks", res.data);
     },
-    async deleteTask({commit, dispatch}, taskData){
-      await api.delete("tasks/" + taskData._id)
-      dispatch("getTasks", taskData)
+    async deleteTask({ commit, dispatch }, taskData) {
+      await api.delete("tasks/" + taskData._id);
+      dispatch("getTasks", taskData);
     },
-    async editTask({commit, dispatch}, editedTask){
+    async editTask({ commit, dispatch }, editedTask) {
       let res = await api.put("tasks/" + editedTask.taskId, editedTask);
-      dispatch("getTasks", editedTask); //NOTE Needs to be res.data eventually 
+      console.log(editedTask);
+
+      dispatch("getTasks", editedTask); //NOTE Needs to be res.data eventually
     },
-    async moveTask({commit, dispatch}, movedTask){
+    async moveTask({ commit, dispatch }, movedTask) {
       console.log("store movedtask", movedTask);
-      
-      let res = await api.put("tasks/" + movedTask.taskId, movedTask);
-      dispatch("getTasks", movedTask); //NOTE Needs to be res.data eventually 
+
+      let res = await api.put("tasks/" + movedTask.id, movedTask);
+      dispatch("getTasks", movedTask); //NOTE Needs to be res.data eventually
     },
-    async deleteList({commit, dispatch}, listData){
-      await api.delete("lists/" + listData._id)
-      dispatch("getLists", listData)
+    async deleteList({ commit, dispatch }, listData) {
+      await api.delete("lists/" + listData._id);
+      dispatch("getLists", listData);
     },
-    async deleteBoard({commit, dispatch}, board){
-      await api.delete("boards/" + board._id)
-      dispatch("getBoards", board)
+    async deleteBoard({ commit, dispatch }, board) {
+      await api.delete("boards/" + board._id);
+      dispatch("getBoards", board);
     },
-    async deleteComment({commit, dispatch}, comment){
+    async deleteComment({ commit, dispatch }, comment) {
       console.log(comment);
-      
-      await api.put("tasks/" + comment.taskId + "/comments/" + comment._id, comment)
-      dispatch("getTasks", comment)
+
+      await api.put(
+        "tasks/" + comment.taskId + "/comments/" + comment._id,
+        comment
+      );
+      dispatch("getTasks", comment);
+    }
   }
-}
 });
 //#endregion

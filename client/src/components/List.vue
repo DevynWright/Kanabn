@@ -1,49 +1,53 @@
 <template>
-  <div class="row">
-    <div class="col-sm-6">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">{{listData.title}}<h6 @click.prevent="deleteList(listData)" style="color: red" class="fas fa-trash-alt"></h6></h5>
-          
-          <span v-for="task in tasks" :key="task._id">
-            <task :taskData="task" />
-          </span>
-          <button @click.prevent="showTask" href="#" class="btn btn-primary">Add Task</button>
-          <modal :name="listData.id">
-            <form @submit.prevent="addTask">
-              <div class="form-group">
-                <input
-                  name="title"
-                  type="text"
-                  v-model="newTask.title"
-                  required
-                  placeholder="Task Title..."
-                />
-              </div>
-              <button @click="hideTask" type="submit">Add Task</button>
-            </form>
-          </modal>
-        </div>
-      </div>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">
+        {{listData.title}}
+        <h6 @click.prevent="deleteList(listData)" style="color: red" class="fas fa-trash-alt"></h6>
+      </h5>
+
+      <drag v-for="task in tasks" :key="task._id" :transfer-data="{task: task}">
+        <task :taskData="task" />
+      </drag>
+
+      <button @click.prevent="showTask" href="#" class="btn btn-primary">Add Task</button>
+      <modal :name="listData.id">
+        <form @submit.prevent="addTask">
+          <div class="form-group">
+            <input
+              name="title"
+              type="text"
+              v-model="newTask.title"
+              required
+              placeholder="Task Title..."
+            />
+          </div>
+          <button @click="hideTask" type="submit">Add Task</button>
+        </form>
+      </modal>
     </div>
   </div>
 </template>
 
 <script>
 import task from "../components/Task";
+import Vue from "vue";
+import { Drag, Drop } from "vue-drag-drop";
+
 export default {
   name: "Lists",
+  props: ["listData"],
   data() {
     return {
       newTask: {}
     };
   },
-  props: ["listData"],
-  mounted() {
-  },
+  mounted() {},
 
   components: {
-    task
+    task,
+    Drag,
+    Drop
   },
   methods: {
     addTask() {
@@ -64,9 +68,9 @@ export default {
     hideTask() {
       this.$modal.hide(this.listData.id);
     },
-    deleteList(listData){
-    this.$store.dispatch("deleteList", listData) //entet sweet alerts here TODO
-  }
+    deleteList(listData) {
+      this.$store.dispatch("deleteList", listData); //entet sweet alerts here TODO
+    }
   },
   computed: {
     tasks() {
