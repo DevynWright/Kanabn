@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col">
       <div class="card">
-        <div class="card-body">
+        <div :style="{ 'background-image': 'url(https://previews.123rf.com/images/yamabikay/yamabikay1708/yamabikay170800397/84636276-gray-recycled-paper-texture-with-copy-space-high-resolution-photo-.jpg)' }" class="card-body">
           <ul>
             <li>
               <b>{{taskData.title}}</b>
@@ -34,7 +34,7 @@
               <button @click="hideEditTask" type="submit">Add List</button>
             </form>
           </modal>
-          <button @click="showAddComment">add comment</button>
+          <button class="btn btn-dark" @click="showAddComment">Comment</button>
           <modal :name="'com' + taskData.id">
             <form @submit.prevent="addComment">
               <div class="form-group">
@@ -46,7 +46,7 @@
                   placeholder="Comment..."
                 />
               </div>
-              <button @click="hideAddComment" type="submit">Add Comment</button>
+              <button class="btn btn-dark" @click="hideAddComment" type="submit">Comment</button>
             </form>
           </modal>
         </div>

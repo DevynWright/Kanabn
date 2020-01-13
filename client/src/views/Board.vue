@@ -1,14 +1,14 @@
 <template>
 <div id="bg" :style="{ 'background-image': 'url(https://scottcoyneunderdev.files.wordpress.com/2015/02/dark-wood-high-quality-wallpaper-hd-resolution3.jpg)' }">
-
-  <div id="bigOcontainer">
-    <div class="conatiner-fluid">
-      <div class="row">
-        <div id="home-boards" class="col-10">
-          <router-link :to="{name: 'boards'}">Home</router-link>
-          <div class="board">{{board.title}}</div>
-          <div>{{board.description}}</div>
-          <button @click.prevent="show">add list</button>
+  <div class="conatiner-fluid">
+    <div class="row">
+      <div id="home-boards" class="col-12">
+        <router-link :to="{name: 'boards'}"><img id="logo-button" src="../assets/logofixed.png" alt=""></router-link>
+      </div>
+      <div style="color:white" class="col-12"><h2>{{board.title}}</h2></div>
+      <div style="color:white" class="col-12"><h4>{{board.description}}</h4></div>
+      <div style="color:white" class="col-12">
+        <button class="btn btn-dark" @click.prevent="show">add list</button>
           <modal name="addListModal">
             <form @submit.prevent="addList">
               <div class="form-group">
@@ -23,25 +23,25 @@
               <button type="submit" @click="hide">Add List</button>
             </form>
           </modal>
-        </div>
-      </div>
-    </div>
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-6">
-          <drop
-            v-for="list in lists"
-            :key="list._id"
-            @dragleave="over = false"
-            @dragover="over = true"
-            @drop="moveTask(list, ...arguments)"
-          >
-            <lists :listData="list" />
-          </drop>
-        </div>
       </div>
     </div>
   </div>
+<div class="container-fluid">
+  <div class="row">
+    
+    <div id="list-body" class="col-3">
+      <drop
+      v-for="list in lists"
+      :key="list._id"
+      @dragleave="over = false"
+      @dragover="over = true"
+      @drop="moveTask(list, ...arguments)"
+      >
+      <lists :listData="list" />
+      </drop>
+    </div>
+  </div>
+</div>
 </div>
 </template>
 
@@ -125,6 +125,12 @@ export default {
 };
 </script>
 <style>
-#home-boards{
+#logo-button{
+  height: 15vh;
+  float: left;
+}
+#list-body{
+  display: flex;
+  justify-content: space-between;
 }
 </style>

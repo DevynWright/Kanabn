@@ -15,9 +15,9 @@
         <button type="submit">Create Board</button>
       </form>
     </div>
-    <div id="chalkboard" :style="{ 'background-image': 'url(https://aedcweb.com/wp-content/uploads/2018/02/cork-board-background.png)' }" class="col-4">
+    <div id="chalkboard" :style="{ 'background-image': 'url(https://img.glyphs.co/img?src=aHR0cHM6Ly9zMy5tZWRpYWxvb3QuY29tL3Jlc291cmNlcy9EYXJrLUNydW1wbGVkLVBhcGVyLVRleHR1cmVzLVByZXZpZXctMS5qcGc&q=90&enlarge=true&h=1036&w=1600)' }" class="col-4">
      <div v-for="board in boards" :key="board._id">
-        <router-link :to="{name: 'board', params: {boardId: board._id}}"><b id="display-title">{{board.title}}</b></router-link>
+        <router-link :to="{name: 'board', params: {boardId: board._id}}"><b style="color: white">{{board.title}}</b></router-link>
         <i @click.prevent="deleteBoard(board)" style="color: red" class="fas fa-trash-alt"></i>
       </div> 
     </div>
@@ -76,6 +76,6 @@
   height: 53vh;
   width: 70vw;
   background-size: cover;
-  border-radius: 10%
+  border-radius: 5%
 }
 </style>

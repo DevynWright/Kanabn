@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <div class="card-body">
+    <div :style="{ 'background-image': 'url(https://us.123rf.com/450wm/yamabikay/yamabikay1802/yamabikay180200158/96042907-dark-grey-paper-background-texture-close-up-high-resolution-photo-.jpg?ver=6)' }" class="card-body">
       <h5 class="card-title">
         {{listData.title}}
         <h6 @click.prevent="deleteList(listData)" style="color: red" class="fas fa-trash-alt"></h6>
@@ -10,7 +10,7 @@
         <task :taskData="task" />
       </drag>
 
-      <button @click.prevent="showTask" href="#" class="btn btn-primary">Add Task</button>
+      <button id="task-button" @click.prevent="showTask" class="btn btn-dark">Add Task</button>
       <modal :name="listData.id">
         <form @submit.prevent="addTask">
           <div class="form-group">
@@ -80,5 +80,11 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
+#card-body{
+  margin-left: 50px
+}
+#task-button{
+  margin-top: 20px
+}
 </style>
