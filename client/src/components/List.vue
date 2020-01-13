@@ -22,7 +22,7 @@
               placeholder="Task Title..."
             />
           </div>
-          <button @click="hideTask" type="submit">Add Task</button>
+          <button class="btn btn-dark" @click="hideTask" type="submit">Add Task</button>
         </form>
       </modal>
     </div>

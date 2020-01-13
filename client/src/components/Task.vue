@@ -5,12 +5,12 @@
         <div :style="{ 'background-image': 'url(https://previews.123rf.com/images/yamabikay/yamabikay1708/yamabikay170800397/84636276-gray-recycled-paper-texture-with-copy-space-high-resolution-photo-.jpg)' }" class="card-body">
           <ul>
             <li>
-              <b>{{taskData.title}}</b>
+              <h5>{{taskData.title}}</h5>
               <i @click.prevent="deleteTask(taskData)" style="color: red" class="fas fa-trash-alt"></i>
               <i @click.prevent="showEditTask" style="color: green" class="fas fa-edit"></i>
               <ol>
                 <li v-for="comment in taskData.comments" :key="comment._id">
-                  {{comment.name}}
+                  <b>{{comment.name}}</b>
                   <i
                     @click.prevent="deleteComment(comment)"
                     style="color: red"

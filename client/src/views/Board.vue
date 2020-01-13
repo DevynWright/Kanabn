@@ -5,9 +5,9 @@
       <div id="home-boards" class="col-12">
         <router-link :to="{name: 'boards'}"><img id="logo-button" src="../assets/logofixed.png" alt=""></router-link>
       </div>
-      <div style="color:white" class="col-12"><h2>{{board.title}}</h2></div>
-      <div style="color:white" class="col-12"><h4>{{board.description}}</h4></div>
-      <div style="color:white" class="col-12">
+      <div style="color: white" class="col-12"><h2>{{board.title}}</h2></div>
+      <div style="color: white" class="col-12"><h4>{{board.description}}</h4></div>
+      <div style="color: white" class="col-12">
         <button class="btn btn-dark" @click.prevent="show">add list</button>
           <modal name="addListModal">
             <form @submit.prevent="addList">
@@ -20,7 +20,7 @@
                   placeholder="List Title..."
                 />
               </div>
-              <button type="submit" @click="hide">Add List</button>
+              <button class="btn btn-dark" type="submit" @click="hide">Add List</button>
             </form>
           </modal>
       </div>
