@@ -14,7 +14,7 @@ store.on("error", function (err) {
 export default class Session {
     constructor() {
         this.express = expressSession({
-            secret: process.env.SECRET, 
+            secret: "Poseidon Powder", 
             cookie: {
                 maxAge: 1000 * 60 * 60 * 24 * 7 * 52 * 2,
             },
