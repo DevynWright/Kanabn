@@ -9,8 +9,8 @@
       <div style="color: white" class="col-12"><h4>{{board.description}}</h4></div>
       <div style="color: white" class="col-12">
         <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-  Launch demo modal
+<button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModalCenter">
+  Add List
 </button>
 
 <!-- Modal -->
