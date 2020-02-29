@@ -23,11 +23,22 @@
                 </button>
               </div>
               <div class="modal-body">
-                ...
+                <form @submit.prevent="addList">
+                  <div class="form-group">
+                    <input
+                      name="title"
+                      type="text"
+                      v-model="newList.title"
+                      required
+                      placeholder="List Title..."
+                    />
+                  </div>
+                  <button class="btn btn-dark" type="submit" @click="hide">Add List</button>
+                </form>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <!-- <button type="submit" class="btn btn-primary">Save changes</button> -->
               </div>
             </div>
           </div>
