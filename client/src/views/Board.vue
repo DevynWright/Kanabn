@@ -8,7 +8,37 @@
       <div style="color: white" class="col-12"><h2>{{board.title}}</h2></div>
       <div style="color: white" class="col-12"><h4>{{board.description}}</h4></div>
       <div style="color: white" class="col-12">
-        <button class="btn btn-dark" @click.prevent="show">add list</button>
+        <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+      
+
+
+        <!-- <button class="btn btn-dark" @click.prevent="show">add list</button>
           <modal name="addListModal">
             <form @submit.prevent="addList">
               <div class="form-group">
@@ -22,7 +52,9 @@
               </div>
               <button class="btn btn-dark" type="submit" @click="hide">Add List</button>
             </form>
-          </modal>
+          </modal> -->
+
+
       </div>
     </div>
   </div>
